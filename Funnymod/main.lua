@@ -1,6 +1,6 @@
 --- STEAMODDED HEADER
---- MOD_NAME: the wubba jokers
---- MOD_ID: WUBBAJOKERS
+--- MOD_NAME: wubbatro
+--- MOD_ID: WUBBATRO
 --- MOD_AUTHOR: [me :)]
 --- MOD_DESCRIPTION: My first joker
 --- PREFIX: wubb
