@@ -542,7 +542,7 @@ SMODS.Consumable{
 
     end,
 }
---- ND (sp) ALTER: TIME (-1 ante, -1 hand size)
+--- DONE! (sp) ALTER: TIME (-1 ante, -1 hand size)
 SMODS.Consumable{
     key = 'alter_time',
     set = 'Spectral', --- wubba no pool, make it so they won't apear
@@ -590,20 +590,6 @@ SMODS.Consumable{
     end,
 }
 --- (sp) ALTER: CORRUPTION (corrupt a card)
-SMODS.Consumable{
-    key = 'alter_corruption',
-    set = 'Spectral', --- wubba no pool, make it so they won't apear
-    loc_txt = {
-        name = 'CORRUPTION',
-        text = {
-            '{C:attention}-1 ante{}, {C:red}-1 hand size{}',
-        }
-    },
-    atlas = 'wubbatarot',
-    pos = {x = 0, y = 0},
-    unlocked = true,
-    discovered = true,
-}
 --- (sp) ALTER: COWHEAD (double money up tp 60)
 --- (sp) ALTER: IMP, wait he is not an alter (destroy cards in hand)
 --- (tar) The burbger (next hand gets 2X mult)
