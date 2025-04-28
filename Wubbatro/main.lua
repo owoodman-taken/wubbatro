@@ -53,6 +53,9 @@ SMODS.Joker{
             retrggers = 2
         }
     },
+    in_pool = function(self,wawa,wawa2)
+         return true
+    end,
     loc_vars = function(self, info_queue, center)
         return {vars = {center.ability.extra.mult}}
     end,
@@ -111,6 +114,9 @@ SMODS.Joker{
             face_card_require = 20
         }
     },
+    in_pool = function(self,wawa,wawa2)
+         return true
+    end,
     loc_vars = function(self,info_queue,center)
     end,
     calculate = function(self,card,context)
@@ -151,6 +157,9 @@ SMODS.Joker{
             cards_above_52 = 0
         }
     },
+    in_pool = function(self,wawa,wawa2)
+         return true
+    end,
     calculate = function (self, card, context)
         if context.setting_blind then
             if (G.GAME.starting_deck_size + #G.playing_cards) > 0 then
@@ -268,6 +277,9 @@ SMODS.Joker{
             Chip_gain = 0
         }
     },
+    in_pool = function(self,wawa,wawa2)
+         return true
+    end,
     calculate = function(self, card, context)
         if context.joker_main then
             card.ability.extra.Mult_gain = G.GAME.dollars * 1
@@ -308,6 +320,9 @@ SMODS.Joker{
             cards_left_to_score = 25
         }
     },
+    in_pool = function(self,wawa,wawa2)
+         return true
+    end,
     loc_vars = function(self, info_queue, center)
         return {vars = {center.ability.extra.cards_left_to_score}}
     end,
@@ -348,6 +363,9 @@ SMODS.Joker{
             x_mult = 1
         }
     },
+    in_pool = function(self,wawa,wawa2)
+         return true
+    end,
     
     loc_vars = function(self, info_queue, center)
         return {vars = {center.ability.extra.x_mult}}
@@ -441,6 +459,9 @@ SMODS.Joker{
             stone_x_mult = 4
         }
     },
+    in_pool = function(self,wawa,wawa2)
+         return true
+    end,
     loc_vars = function(self, info_queue, center)
         return {
             vars = {
