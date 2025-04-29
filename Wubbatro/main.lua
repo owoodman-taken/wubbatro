@@ -605,7 +605,37 @@ SMODS.Consumable{
 
     end,
 }
---- (sp) ALTER: CORRUPTION (corrupt a card)
+--- (sp) ALTER: CORRUPTION (earn 10$)
+SMODS.Consumable{
+key = 'alter_corrupt',
+set = 'Spectral', --- wubba no pool, make it so they won't apear
+loc_txt = {
+    name = 'CORRUPTION',
+    text = {
+        'earn {C:dollars}10${}',
+    }
+},
+atlas = 'wubbatarot',
+pos = {x = 2, y = 0},
+unlocked = true,
+discovered = true,
+config = {
+    extra = {
+        can_use = 0,
+        h_size = -1
+    }
+},
+can_use = function (self, card)
+    return true
+end,
+use = function (self, card, area, copier)
+    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+        play_sound('timpani')
+        ease_dollars(10, true)
+        return true end }))
+        delay(0.6)
+    end
+}
 --- (sp) ALTER: COWHEAD (double money up tp 60)
 --- (sp) ALTER: IMP, wait he is not an alter (destroy cards in hand)
 --- (tar) The burbger (next hand gets 2X mult)
@@ -668,31 +698,6 @@ SMODS.Consumable {
 ---
 ---
 ---corrupted cards (destroyed when triggered but give 5 dollars)
-SMODS.Enhancement{
-    key = 'corrupted',
-    loc_txt = {
-        name = 'corrupted',
-        text = {
-            'earn {C:yellow}5${} and {C:red}destroy this card{}'
-        }
-    },
-    atlas = 'wubbatarot',
-    pos = {x = 4, y = 1},
-    config = {
-        extra = {
-
-        },
-        p_dollars = 5
-    },
-    calculate = function(self, card, context)
-        if context.destroy_card then
-            return {
-             destroy_card = card
-            }
-           
-        end
-    end
-}
 ---
 ---
 ---MISC. 
