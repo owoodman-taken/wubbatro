@@ -137,8 +137,6 @@ SMODS.Joker{
         text = {
             'this card gives you {C:money}$20{} at the',
             'start and end of every blind',
-            'money earned increases by {C:money}$1{} with',
-            'every card above 52 to your deck.'
         },
     },
     atlas = 'Jokers',
@@ -162,11 +160,8 @@ SMODS.Joker{
     end,
     calculate = function (self, card, context)
         if context.setting_blind then
-            if (G.GAME.starting_deck_size + #G.playing_cards) > 0 then
-                card.ability.extra.cards_above_52 = (G.GAME.starting_deck_size + #G.playing_cards)
-            end
             return {
-                dollars = card.ability.extra.money_earning + (card.ability.extra.cards_above_52 * 5)
+                dollars = card.ability.extra.money_earning 
             }
         end
         if context.end_of_round and context.cardarea == G.jokers then
