@@ -692,7 +692,7 @@ SMODS.Enhancement{
     calculate = function(self, card, context)
         if context.destroy_card then
             return {
-             destroy_card = self
+             destroy_card = card
             }
            
         end
