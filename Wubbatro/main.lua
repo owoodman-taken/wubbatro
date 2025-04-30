@@ -186,7 +186,7 @@ SMODS.Joker{
                 }
             end
             if card.ability.extra.cards_needed_to_destroy == 0 or card.ability.extra.cards_needed_to_destroy == -1 then
-                local new_card = create_card('Joker', G.jokers, nil,nil,nil,nil, 'angry calico')
+                local new_card = create_card('Joker', G.jokers, nil,nil,nil,nil, 'angry_calico')
                 new_card:set_eternal()
                 new_card:add_to_deck()
                 G.jokers:emplace(new_card)
@@ -198,7 +198,7 @@ SMODS.Joker{
 }
 --- DONE! calico's fury
 SMODS.Joker{
-    key = 'angry calico',
+    key = 'angry_calico',
     loc_txt = {
         name = 'Calicos Fury',
         text = {
