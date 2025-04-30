@@ -42,7 +42,7 @@ SMODS.Joker{
     cost = 10,
     unlocked = true, --where it is unlocked or not: if true, 
     discovered = true, --whether or not it starts discovered
-    blueprint_compat = false, --can it be blueprinted/brainstormed/other
+    blueprint_compat = true, --can it be blueprinted/brainstormed/other
     eternal_compat = true, --can it be eternal
     perishable_compat = true, --can it be perishable
     pos = {x = 5, y = 1},
@@ -70,7 +70,7 @@ SMODS.Joker{
                 }
             end
         end
-        if context.individual and context.cardarea == G.play then
+        if context.individual and context.cardarea == G.play and not context.blueprint then
             if context.other_card:is_suit("Hearts") then
                 card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.Mult_gain
                 
@@ -103,7 +103,7 @@ SMODS.Joker{
     cost = 40,
     unlocked = true, --where it is unlocked or not: if true, 
     discovered = true, --whether or not it starts discovered
-    blueprint_compat = false, --can it be blueprinted/brainstormed/other
+    blueprint_compat = true, --can it be blueprinted/brainstormed/other
     eternal_compat = true, --can it be eternal
     perishable_compat = true, --can it be perishable
     pos = {x = 1, y = 2},
@@ -120,7 +120,7 @@ SMODS.Joker{
     loc_vars = function(self,info_queue,center)
     end,
     calculate = function(self,card,context)
-        if context.individual and context.cardarea == G.play and not context.blueprint then
+        if context.individual and context.cardarea == G.play then
             if not context.other_card:is_face() then
                 return {
                     dollars = card.ability.extra.money_earned
@@ -172,12 +172,12 @@ SMODS.Joker{
                 dollars = card.ability.extra.money_earning + (card.ability.extra.cards_above_52 * 5)
             }
         end
-        if context.cards_destroyed then
+        if context.cards_destroyed and not context.blueprint then
             for k, v in ipairs(context.glass_shattered) do
                 card.ability.extra.cards_needed_to_destroy = card.ability.extra.cards_needed_to_destroy - 1
             end
         end
-        if context.remove_playing_cards then
+        if context.remove_playing_cards and not context.blueprint then
             for k, val in ipairs(context.removed) do
                 card.ability.extra.cards_needed_to_destroy = card.ability.extra.cards_needed_to_destroy - 1
                 return {
@@ -322,7 +322,7 @@ SMODS.Joker{
         return {vars = {center.ability.extra.cards_left_to_score}}
     end,
     calculate = function (self, card, context)
-        if context.individual and context.cardarea == G.play then
+        if context.individual and context.cardarea == G.play and not context.blueprint then
             if context.other_card:is_face() then
                 card.ability.extra.cards_left_to_score = card.ability.extra.cards_left_to_score - 1
                 if card.ability.extra.cards_left_to_score == 0 then
@@ -349,7 +349,7 @@ SMODS.Joker{
     cost = 10,
     unlocked = true, --where it is unlocked or not: if true, 
     discovered = true, --whether or not it starts discovered
-    blueprint_compat = false, --can it be blueprinted/brainstormed/other
+    blueprint_compat = true, --can it be blueprinted/brainstormed/other
     eternal_compat = true, --can it be eternal
     perishable_compat = true, --can it be perishable
     pos = {x = 0, y = 1},
@@ -366,7 +366,7 @@ SMODS.Joker{
         return {vars = {center.ability.extra.x_mult}}
     end,
     calculate = function (self, card, context)
-        if context.using_consumeable then
+        if context.using_consumeable and not context.blueprint then
             if (context.consumeable.ability.set == "Tarot") then
                 card.ability.extra.x_mult = card.ability.extra.x_mult + 0.05
                 return {
@@ -403,7 +403,7 @@ SMODS.Joker{
     cost = 15,
     unlocked = true, --where it is unlocked or not: if true, 
     discovered = true, --whether or not it starts discovered
-    blueprint_compat = false, --can it be blueprinted/brainstormed/other
+    blueprint_compat = true, --can it be blueprinted/brainstormed/other
     eternal_compat = true, --can it be eternal
     perishable_compat = true, --can it be perishable
     pos = {x = 2, y = 1},
@@ -441,7 +441,7 @@ SMODS.Joker{
     cost = 30,
     unlocked = true, --where it is unlocked or not: if true, 
     discovered = true, --whether or not it starts discovered
-    blueprint_compat = false, --can it be blueprinted/brainstormed/other
+    blueprint_compat = true, --can it be blueprinted/brainstormed/other
     eternal_compat = true, --can it be eternal
     perishable_compat = false, --can it be perishable
     pos = {x = 3, y = 1},
