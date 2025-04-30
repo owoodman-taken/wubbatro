@@ -636,7 +636,68 @@ use = function (self, card, area, copier)
         delay(0.6)
     end
 }
+--- (sp) ALTER: COWHEAD (create 4 tarot cards)
+SMODS.Consumable{
+key = 'alter_corrupt',
+set = 'Spectral', --- wubba no pool, make it so they won't apear
+loc_txt = {
+    name = 'CORRUPTION',
+    text = {
+        'earn {C:dollars}10${}',
+    }
+},
+atlas = 'wubbatarot',
+pos = {x = 2, y = 0},
+unlocked = true,
+discovered = true,
+config = {
+    extra = {
+        can_use = 0,
+        h_size = -1
+    }
+},
+can_use = function (self, card)
+    return true
+end,
+use = function (self, card, area, copier)
+    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+        play_sound('timpani')
+        ease_dollars(10, true)
+        return true end }))
+        delay(0.6)
+    end
+}
 --- (sp) ALTER: COWHEAD (double money up tp 60)
+SMODS.Consumable{
+key = 'alter_cowhead',
+set = 'Spectral', --- wubba no pool, make it so they won't apear
+loc_txt = {
+    name = 'COWHEAD',
+    text = {
+        'create 4 random {C:tarot}tarot{} cards',
+        '{C:attention}DOES NOT NEED SPACE{}'
+    }
+},
+atlas = 'wubbatarot',
+pos = {x = 3, y = 0},
+unlocked = true,
+discovered = true,
+config = {
+    extra = {
+        can_use = 0,
+        h_size = -1
+    }
+},
+can_use = function (self, card)
+    return true
+end,
+use = function (self, card, area, copier)
+    SMODS.add_card({area = G.consumeables, set = 'Tarot'})
+    SMODS.add_card({area = G.consumeables, set = 'Tarot'})
+    SMODS.add_card({area = G.consumeables, set = 'Tarot'})
+    SMODS.add_card({area = G.consumeables, set = 'Tarot'})
+end
+}
 --- (sp) ALTER: IMP, wait he is not an alter (destroy cards in hand)
 --- (tar) The burbger (next hand gets 2X mult)
 --- burbger joker thing
