@@ -739,7 +739,79 @@ SMODS.Consumable{
     end
 }
 --- (tar) The burbger (next hand gets 2X mult)
+    key = 'burger',
+    set = 'Tarot', --- wubba no pool, make it so they won't apear
+    loc_txt = {
+        name = 'the burbger',
+        text = {
+            'for the rest of round (or next), you gain {X:mult}X2MULT{}',
+        }
+    },
+    atlas = 'wubbatarot',
+    pos = {x = 0, y = 1},
+    unlocked = true,
+    discovered = true,
+    config = {
+        burbger_joker = 'burb_joker'
+    },
+    can_use = function (self, card)
+        return true
+    end,
+    use = function (self, card, area, copier)
+        local new_card = create_card('Joker', G.jokers, nil,nil,nil,nil, 'j_wubb_burb_joker')
+        new_card:set_edition('e_negative', true)
+        new_card:add_to_deck()
+        G.jokers:emplace(new_card)
+    end
+}
 --- burbger joker thing
+SMODS.Joker{
+    key = 'burb_joker',
+    loc_txt = {
+        name = 'burbger',
+        text = {
+            '{X:mult}X2MULT{}, but {C:red}destroy self{} at end of round',
+        },
+    },
+    atlas = 'wubbatarot',
+    rarity = 1,
+    cost = 0,
+    unlocked = true, --where it is unlocked or not: if true, 
+    discovered = true, --whether or not it starts discovered
+    blueprint_compat = true, --can it be blueprinted/brainstormed/other
+    eternal_compat = true, --can it be eternal
+    perishable_compat = true, --can it be perishable
+    pos = {x = 0, y = 1},
+    config = {
+        extra = {
+            x_mult = 2
+        }
+    },
+    in_pool = function(self,wawa,wawa2)
+         return false
+    end,
+    calculate = function (self, card, context)
+        if context.joker_main then
+            return {
+                x_mult = 2
+            }
+        end
+        if context.end_of_round and context.cardarea == G.jokers and not context.blueprint then
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.3,
+                blockable = false,
+                func = function()
+                    G.jokers:remove_card(card)
+                    card:remove()
+                    card = nil
+                    return true;
+                end
+            }))
+
+        end
+    end
+}
 --- (sp) nombre's gift (insert that one image and gives you a negative dupe of a joker but perishable)
 --- (tar) chicken (exodia part 1)
 --- (sp) OMG IT'S HIM!!!(exodia part 2)
