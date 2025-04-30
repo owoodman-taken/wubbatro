@@ -862,8 +862,31 @@ SMODS.Consumable {
 ---BLINDS
 ---
 ---
----Blooky (debuff 1 joker after first hand of round)
----the wubbaburbger etablishment (finisher: all cards are debuffed, unless you use a burbger)
+---the wubbaburbger etablishment
+SMODS.Blind{
+    key = 'wubbaburbger',
+    loc_txt = {
+        name = 'The Wubbaburbger',
+        text = {
+            'all face cards, all hearts,',
+            'all aces, and 10s are all debuffed'
+        }
+    },
+    atlas = 'wubbablinds', pos = {x = 0, y = 0},
+    discovered = true,
+    boss_colour = HEX('CF8861'),
+    dollars = 10,
+    boss = {
+        showdown = true,
+        
+    },
+    debuff = {
+        suit = 'Hearts',
+        nominal = 10,
+        value = 'Ace'
+    },
+    
+}
 ---
 ---
 ---Enhancements
