@@ -698,7 +698,46 @@ use = function (self, card, area, copier)
     SMODS.add_card({area = G.consumeables, set = 'Tarot'})
 end
 }
---- (sp) ALTER: IMP, wait he is not an alter (destroy cards in hand)
+--- (sp) ALTER: IMP, wait he is not an alter (give 2 cards in hand bonus enhancement and holographic)
+SMODS.Consumable{
+    key = 'alter_imp',
+    set = 'Spectral', --- wubba no pool, make it so they won't apear
+    loc_txt = {
+        name = 'IMP- wait your not an alter',
+        text = {
+            'select {C:attention}2 cards{} and make them {C:edition,E:2}holographic{}',
+            'and apply the {C:chips}bonus enhancement{} to them'
+        }
+    },
+    atlas = 'wubbatarot',
+    pos = {x = 4, y = 0},
+    unlocked = true,
+    discovered = true,
+    config = {
+        max_highlighted = 2,
+        edition = 'e_holo',
+        enhancement = 'm_bonus'
+    },
+    can_use = function (self, card)
+        return true
+    end,
+    use = function (self, card, area, copier)
+        for i = 1, math.min(#G.hand.highlighted, card.ability.max_highlighted) do
+            G.E_MANAGER:add_event(Event({func = function()
+                play_sound('tarot1')
+                card:juice_up(0.3, 0.5)
+                return true end }))
+            
+            G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
+                G.hand.highlighted[i]:set_edition(card.ability.edition, true)
+                G.hand.highlighted[i]:set_ability(card.ability.enhancement, true)
+                return true end }))
+            
+            delay(0.5)
+        end
+        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2,func = function() G.hand:unhighlight_all(); return true end }))
+    end
+}
 --- (tar) The burbger (next hand gets 2X mult)
 --- burbger joker thing
 --- (sp) nombre's gift (insert that one image and gives you a negative dupe of a joker but perishable)
