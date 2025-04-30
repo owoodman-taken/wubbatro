@@ -91,7 +91,7 @@ SMODS.Joker{
 }
 --- DONE! burt basil
 SMODS.Joker{
-    key = 'Doc Basil',
+    key = 'Doc_Basil',
     loc_txt = {
         name = 'Burnt Basil',
         text = {
@@ -249,7 +249,7 @@ SMODS.Joker{
 }
 --- DONE! spooky 
 SMODS.Joker{
-    key = 'spooky joker',
+    key = 'spooky_joker',
     loc_txt = {
         name = 'Spooky Joker',
         text = {
@@ -637,37 +637,6 @@ use = function (self, card, area, copier)
     end
 }
 --- (sp) ALTER: COWHEAD (create 4 tarot cards)
-SMODS.Consumable{
-key = 'alter_corrupt',
-set = 'Spectral', --- wubba no pool, make it so they won't apear
-loc_txt = {
-    name = 'CORRUPTION',
-    text = {
-        'earn {C:dollars}10${}',
-    }
-},
-atlas = 'wubbatarot',
-pos = {x = 2, y = 0},
-unlocked = true,
-discovered = true,
-config = {
-    extra = {
-        can_use = 0,
-        h_size = -1
-    }
-},
-can_use = function (self, card)
-    return true
-end,
-use = function (self, card, area, copier)
-    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-        play_sound('timpani')
-        ease_dollars(10, true)
-        return true end }))
-        delay(0.6)
-    end
-}
---- (sp) ALTER: COWHEAD (double money up tp 60)
 SMODS.Consumable{
 key = 'alter_cowhead',
 set = 'Spectral', --- wubba no pool, make it so they won't apear
