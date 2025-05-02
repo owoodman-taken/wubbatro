@@ -707,6 +707,7 @@ SMODS.Consumable{
     end
 }
 --- (tar) The burbger (next hand gets 2X mult)
+SMODS.Consumable {
     key = 'burger',
     set = 'Tarot', --- wubba no pool, make it so they won't apear
     loc_txt = {
@@ -798,7 +799,7 @@ SMODS.Consumable {
     discovered = true,
     config = {
         extra = {
-            can_use = 0
+            can_use = 0,
 	    violence_percent = 0.9
         }
     },
@@ -812,6 +813,7 @@ SMODS.Consumable {
                 center.ability.extra.violence_percent
             }
         }
+	end
     use = function (self, card, area, copier)
         Change_blind_size(G.GAME.blind.chips*card.ability.extra.violence_percent,false,false)
     end,
