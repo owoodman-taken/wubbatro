@@ -813,6 +813,7 @@ SMODS.Consumable {
                 center.ability.extra.violence_percent
             }
         }
+	end
     use = function (self, card, area, copier)
         Change_blind_size(G.GAME.blind.chips*card.ability.extra.violence_percent,false,false)
     end,
