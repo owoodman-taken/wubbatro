@@ -286,9 +286,8 @@ SMODS.Joker{
     end
 }
 --- vignette
---- joker flavored fanta
---- rexipoo (omg its rexipoo :D its an insta win but like exodia) (last)
---- rexipoo's catylist (rare) (exodia part 3)
+--- joker flavored fanta (aces lower blind req by 2%)
+--- rexipoo (overflow on chips thing)
 --- DONE! anthaneus (every 25 cards scored, make the 25th card polychrome)
 SMODS.Joker{
     key = "anthanues",
@@ -782,8 +781,6 @@ SMODS.Joker{
     end
 }
 --- (sp) nombre's gift (insert that one image and gives you a negative dupe of a joker but perishable)
---- (tar) chicken (exodia part 1)
---- (sp) OMG IT'S HIM!!!(exodia part 2)
 --- DONE!!! cool sword
 SMODS.Consumable {
     key = 'cool_sword',
@@ -791,7 +788,7 @@ SMODS.Consumable {
     loc_txt = {
         name = 'cool sword',
         text = {
-            'lower the blind requirement by 10%',
+            'lower the blind requirement by #1#%',
         }
     },
     atlas = 'wubbatarot',
@@ -802,14 +799,21 @@ SMODS.Consumable {
     config = {
         extra = {
             can_use = 0
+	    violence_percent = 0.9
         }
     },
     in_pool = function(self,wawa,wawa2)
         --whether or not this card is in the pool, return true if it is, return false if its not
         return true
     end,
+    loc_vars = function(self, info_queue, center)
+        return {
+            vars = {
+                center.ability.extra.violence_percent
+            }
+        }
     use = function (self, card, area, copier)
-        Change_blind_size(G.GAME.blind.chips*0.8,false,false)
+        Change_blind_size(G.GAME.blind.chips*card.ability.extra.violence_percent,false,false)
     end,
     can_use = function(self, card)
         return{true}
