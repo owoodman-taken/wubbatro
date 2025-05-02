@@ -134,7 +134,7 @@ SMODS.Joker{
     loc_txt = {
         name = 'Calico Joker',
         text = {
-            'this card gives you {C:money}$20{} at the',
+            'this card gives you {C:money}$#1#{} at the',
             'start and end of every blind',
         },
     },
@@ -151,24 +151,23 @@ SMODS.Joker{
         extra = {
             money_earning = 20,
             cards_needed_to_destroy = 6,
-            cards_above_52 = 0
         }
     },
     in_pool = function(self,wawa,wawa2)
          return true
     end,
+    loc_vars = function(self, info_queue, center)
+        return {vars = {center.ability.extra.money_earning}}
+    end,
     calculate = function (self, card, context)
         if context.setting_blind then
             return {
-                dollars = card.ability.extra.money_earning 
+                dollars = card.ability.extra.money_earning
             }
         end
         if context.end_of_round and context.cardarea == G.jokers then
-            if (G.GAME.starting_deck_size - #G.playing_cards) > 0 then
-                card.ability.extra.cards_above_52 = (G.GAME.starting_deck_size + #G.playing_cards)
-            end
             return {
-                dollars = card.ability.extra.money_earning + (card.ability.extra.cards_above_52 * 5)
+                dollars = card.ability.extra.money_earning
             }
         end
         if context.cards_destroyed and not context.blueprint then
@@ -184,7 +183,7 @@ SMODS.Joker{
                     colour = G.C.RED
                 }
             end
-            if card.ability.extra.cards_needed_to_destroy == 0 or card.ability.extra.cards_needed_to_destroy == -1 then
+            if card.ability.extra.cards_needed_to_destroy == 0 or card.ability.extra.cards_needed_to_destroy == -1 and not context.blueprint then
                 local new_card = create_card('Joker', G.jokers, nil,nil,nil,nil, 'angry_calico')
                 new_card:set_eternal()
                 new_card:add_to_deck()
