@@ -91,11 +91,11 @@ SMODS.Joker{
 }
 --- DONE! burt basil
 SMODS.Joker{
-    key = 'Doc_Basil',
+    key = 'Doc Basil',
     loc_txt = {
         name = 'Burnt Basil',
         text = {
-            'non-face cards earn{C:money} $1{} when scored,'
+            'non-face cards earn{C:money} $#1#{} when scored,'
         },
     },
     atlas = "Jokers",
@@ -103,21 +103,20 @@ SMODS.Joker{
     cost = 40,
     unlocked = true, --where it is unlocked or not: if true, 
     discovered = true, --whether or not it starts discovered
-    blueprint_compat = true, --can it be blueprinted/brainstormed/other
+    blueprint_compat = false, --can it be blueprinted/brainstormed/other
     eternal_compat = true, --can it be eternal
     perishable_compat = true, --can it be perishable
     pos = {x = 1, y = 2},
     config = {
         extra = {
             money_earned = 1,
-            face_cards_scored = 0,
-            face_card_require = 20
         }
     },
     in_pool = function(self,wawa,wawa2)
          return true
     end,
     loc_vars = function(self,info_queue,center)
+        return {vars = {center.ability.extra.money_earned}}
     end,
     calculate = function(self,card,context)
         if context.individual and context.cardarea == G.play then
