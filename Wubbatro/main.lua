@@ -32,9 +32,9 @@ SMODS.Joker{
         name = 'jack the joker',
         text = {
         'when a {C:hearts}heart card {}is played,',
-        'this joker gains {C:mult}+2 Mult {}.',
-        'retrgger all jacks twice',
-        '{C:inactive}(currently{} {C:mult}#1# Mult{}{C:inactive}){}'
+        'this joker gains {C:mult}+#1# mult{}.',
+        'retrgger all jacks #2# times',
+        '{C:inactive}(currently{} {C:mult}#3# Mult{}{C:inactive}){}'
         },
     },
     atlas = "Jokers",
@@ -57,7 +57,7 @@ SMODS.Joker{
          return true
     end,
     loc_vars = function(self, info_queue, center)
-        return {vars = {center.ability.extra.mult}}
+        return {vars = {center.ability.extra.Mult_gain, center.ability.extra.retrggers, center.ability.extra.mult}}
     end,
     calculate = function(self, card, context)
     
