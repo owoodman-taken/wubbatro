@@ -336,10 +336,10 @@ SMODS.Joker{
     loc_txt = {
         name = 'stupid joker',
         text = {
-        'gain {C:white,X:mult}0.05X{} Mult when a {C:tarot}tarot{} card,',
-        'is used, and gain {C:white,X:mult}0.1X{} Mult when you',
+        'gain {C:white,X:mult}#1#X{} Mult when a {C:tarot}tarot{} card,',
+        'is used, and gain {C:white,X:mult}#2#X{} Mult when you',
         'you use a {C:spectral}spectral{} card.',
-        '(currently {C:white,X:mult}#1#X{} Mult)'
+        '(currently {C:white,X:mult}#3#X{} Mult)'
         },
     },
     atlas = "Jokers",
@@ -347,12 +347,14 @@ SMODS.Joker{
     cost = 10,
     unlocked = true, --where it is unlocked or not: if true, 
     discovered = true, --whether or not it starts discovered
-    blueprint_compat = true, --can it be blueprinted/brainstormed/other
+    blueprint_compat = false, --can it be blueprinted/brainstormed/other
     eternal_compat = true, --can it be eternal
     perishable_compat = true, --can it be perishable
     pos = {x = 0, y = 1},
     config = {
         extra = {
+            tarot_gain = 0.05,
+            spectral_gain = 0.1,
             x_mult = 1
         }
     },
@@ -361,19 +363,19 @@ SMODS.Joker{
     end,
     
     loc_vars = function(self, info_queue, center)
-        return {vars = {center.ability.extra.x_mult}}
+        return {vars = {center.ability.extra.tarot_gain, center.ability.extra.spectral_gain, center.ability.extra.x_mult}}
     end,
     calculate = function (self, card, context)
         if context.using_consumeable and not context.blueprint then
             if (context.consumeable.ability.set == "Tarot") then
-                card.ability.extra.x_mult = card.ability.extra.x_mult + 0.05
+                card.ability.extra.x_mult = card.ability.extra.x_mult + card.ability.extra.tarot_gain
                 return {
                     message = '+0.05X!',
                     colour = G.C.RED
                 }
             end
             if context.consumeable.ability.set == 'Spectral' then
-                card.ability.extra.x_mult = card.ability.extra.x_mult + 0.1
+                card.ability.extra.x_mult = card.ability.extra.x_mult + card.ability.extra.spectral_gain
                 return {
                     message = '+0.1X!',
                     colour = G.C.RED
