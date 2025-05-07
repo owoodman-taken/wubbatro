@@ -287,6 +287,39 @@ SMODS.Joker{
 }
 --- vignette
 --- joker flavored fanta (aces lower blind req by 2%)
+SMODS.Joker{
+    key = "joker_flav_fant",
+    loc_txt = {
+        name = 'joker flavored fanta',
+        text = {
+        'aces reduce blind size to {C:anttention}#1#%{} of original size',
+        },
+    },
+    atlas = "Jokers",
+    rarity = 1,
+    cost = 6,
+    unlocked = true, --where it is unlocked or not: if true, 
+    discovered = true, --whether or not it starts discovered
+    blueprint_compat = true, --can it be blueprinted/brainstormed/other
+    eternal_compat = true, --can it be eternal
+    perishable_compat = true, --can it be perishable
+    pos = {x = 5, y = 0},
+    config = {
+        extra = {
+            violence_percent = 0.98
+        }
+    },
+    loc_vars = function(self, info_queue, center)
+        return {vars = {(center.ability.extra.violence_percent * 100),}}
+    end,
+    in_pool = function(self,wawa,wawa2)
+        --whether or not this card is in the pool, return true if it is, return false if its not
+        return true
+    end,
+    calculate = function (self,card,context)
+
+    end
+}
 --- rexipoo (all bonus cards give 4X mult and mult cards give 4X chips)
 --- DONE! anthaneus (every 25 cards scored, make the 25th card polychrome)
 SMODS.Joker{
