@@ -29,7 +29,7 @@ SMODS.Atlas{
 SMODS.Joker{
     key = "jack_the_joker",
     loc_txt = {
-        name = 'jack the joker',
+        name = '{C:red}jack the joker{}',
         text = {
         'when a {C:hearts}heart card {}is played,',
         'this joker gains {C:mult}+#1# mult{}.',
@@ -93,7 +93,7 @@ SMODS.Joker{
 SMODS.Joker{
     key = 'Doc Basil',
     loc_txt = {
-        name = 'Burnt Basil',
+        name = '{C:green}Burnt Basil{}',
         text = {
             'non-face cards earn{C:money} $#1#{} when scored,'
         },
@@ -198,7 +198,7 @@ SMODS.Joker{
 SMODS.Joker{
     key = 'angry_calico',
     loc_txt = {
-        name = 'Calicos Fury',
+        name = '{C:red}Calicos Fury{}',
         text = {
             '{C:red,E:2}you have upset him...{}',
             '{C:red,E:2}you will know regret.{}'
@@ -249,7 +249,7 @@ SMODS.Joker{
 SMODS.Joker{
     key = 'spooky_joker',
     loc_txt = {
-        name = 'Spooky Joker',
+        name = '{C:green}Spooky Joker{}',
         text = {
             '{C:mult}+1 Mult{} and also {C:chips}+10 Chips{}',
             'for every {C:money}$1{} you currently have'
@@ -290,9 +290,10 @@ SMODS.Joker{
 SMODS.Joker{
     key = "joker_flav_fant",
     loc_txt = {
-        name = 'joker flavored fanta',
+        name = '{C:attention}joker flavored fanta{}',
         text = {
-        'aces reduce blind size to {C:anttention}#1#%{} of original size',
+        'scored aces reduce blind {s:2}size{} to {C:attention}#1#%{}',
+        'of the blinds original {s:2}size{}',
         },
     },
     atlas = "Jokers",
@@ -317,7 +318,11 @@ SMODS.Joker{
         return true
     end,
     calculate = function (self,card,context)
-
+        if context.individual and context.cardarea == G.play then
+            if context.other_card:get_id() == 14 then
+                Change_blind_size((G.GAME.blind.chips*card.ability.extra.violence_percent),false,false)
+            end
+        end
     end
 }
 --- rexipoo (all bonus cards give 4X mult and mult cards give 4X chips)
@@ -459,7 +464,7 @@ SMODS.Joker{
 SMODS.Joker{
     key = "owoodman",
     loc_txt = {
-        name = 'Owoodman',
+        name = '{C:gold}Owoodman{}',
         text = {
             'if you win with the {C:attention}first{} hand ({C:mult,E:2}NO DISCARDS{})',
             'of a blind, create a {C:attention,T:tag_double}double tag{}.',
