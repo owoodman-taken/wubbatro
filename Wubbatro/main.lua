@@ -100,7 +100,7 @@ SMODS.Joker{
     },
     atlas = "Jokers",
     rarity = 2,
-    cost = 40,
+    cost = 20,
     unlocked = true, --where it is unlocked or not: if true, 
     discovered = true, --whether or not it starts discovered
     blueprint_compat = false, --can it be blueprinted/brainstormed/other
@@ -287,7 +287,7 @@ SMODS.Joker{
 }
 --- vignette
 --- joker flavored fanta (aces lower blind req by 2%)
---- rexipoo (overflow on chips thing)
+--- rexipoo (all bonus cards give 4X mult and mult cards give 4X chips)
 --- DONE! anthaneus (every 25 cards scored, make the 25th card polychrome)
 SMODS.Joker{
     key = "anthanues",
@@ -673,7 +673,7 @@ SMODS.Consumable{
     loc_txt = {
         name = 'IMP- wait your not an alter',
         text = {
-            'select {C:attention}2 cards{} and make them {C:edition,E:2}holographic{}',
+            'select {C:attention}#1# cards{} and make them {C:edition,E:2}holographic{}',
             'and apply the {C:chips}bonus enhancement{} to them'
         }
     },
@@ -688,6 +688,13 @@ SMODS.Consumable{
     },
     can_use = function (self, card)
         return true
+    end,
+    loc_vars = function(self, info_queue, center)
+        return {
+            vars = {
+                center.ability.extra.max_highlighted
+            }
+        }
     end,
     use = function (self, card, area, copier)
         for i = 1, math.min(#G.hand.highlighted, card.ability.max_highlighted) do
@@ -713,7 +720,7 @@ SMODS.Consumable {
     loc_txt = {
         name = 'the burbger',
         text = {
-            'for the rest of round (or next), you gain {X:mult}X2MULT{}',
+            'for the rest of round (or next), you gain {X:mult,C:white}X2MULT{}',
         }
     },
     atlas = 'wubbatarot',
@@ -739,7 +746,7 @@ SMODS.Joker{
     loc_txt = {
         name = 'burbger',
         text = {
-            '{X:mult}X2MULT{}, but {C:red}destroy self{} at end of round',
+            '{X:mult,C:white}X#1#MULT{}, but {C:red}destroy self{} at end of round',
         },
     },
     atlas = 'wubbatarot',
@@ -756,6 +763,13 @@ SMODS.Joker{
             x_mult = 2
         }
     },
+    loc_vars = function(self, info_queue, center)
+        return {
+            vars = {
+                center.ability.extra.x_mult
+            }
+        }
+    end,
     in_pool = function(self,wawa,wawa2)
          return false
     end,
@@ -789,7 +803,8 @@ SMODS.Consumable {
     loc_txt = {
         name = 'cool sword',
         text = {
-            'lower the blind requirement by #1#%',
+            'lower the blind requirement to #1#%',
+	    'of its original size'
         }
     },
     atlas = 'wubbatarot',
@@ -867,7 +882,6 @@ SMODS.Blind{
 ---Enhancements
 ---
 ---
----corrupted cards (destroyed when triggered but give 5 dollars)
 ---
 ---
 ---MISC. 
