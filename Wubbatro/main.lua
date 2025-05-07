@@ -325,7 +325,56 @@ SMODS.Joker{
         end
     end
 }
---- rexipoo (all bonus cards give 4X mult and mult cards give 4X chips)
+--- rexipoo (idk anymore lol)
+SMODS.Joker{
+    key = "rexipoo",
+    loc_txt = {
+        name = 'rexipoo',
+        text = {
+        'upon winning a blind, add 1 tenth',
+        'of its requirement as {C:chips}+chips{}',
+        '{C:inactive}(currently{}{C:chips}+#1# chips{}{C:inactive}){}'
+        },
+    },
+    atlas = "Jokers",
+    rarity = 4,
+    cost = 30,
+    unlocked = true, --where it is unlocked or not: if true, 
+    discovered = true, --whether or not it starts discovered
+    blueprint_compat = true, --can it be blueprinted/brainstormed/other
+    eternal_compat = true, --can it be eternal
+    perishable_compat = true, --can it be perishable
+    pos = {x = 0, y = 2},
+    config = {
+        extra = {
+            chip = 0,
+            div_blind_amount = 0,
+            current_score = 0
+        }
+    },
+    in_pool = function(self,wawa,wawa2)
+         return true
+    end,
+    loc_vars = function(self, info_queue, center)
+        return {vars = {center.ability.extra.chip,}}
+    end,
+    calculate = function (self, card, context)
+        if context.end_of_round and context.cardarea == G.jokers and not context.blueprint then
+            card.ability.extra.div_blind_amount = (G.GAME.blind.chips/10)
+            card.ability.extra.chip = card.ability.extra.chip + card.ability.extra.div_blind_amount
+            return {
+                message = '+' .. card.ability.extra.div_blind_amount .. ' chips!',
+                colour = G.C.CHIPS,
+            }
+        end
+        if context.joker_main and context then
+            return {
+                chips = card.ability.extra.chip,
+            }
+        end
+
+    end
+}
 --- DONE! anthaneus (every 25 cards scored, make the 25th card polychrome)
 SMODS.Joker{
     key = "anthanues",
