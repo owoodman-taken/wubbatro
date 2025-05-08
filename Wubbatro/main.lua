@@ -20,6 +20,14 @@ SMODS.Atlas{
     px = 71,
     py = 95
 }
+SMODS.Atlas{
+    key = 'wubbablind',
+    path = 'blind.png',
+    px = 34,
+    py = 34,
+    atlas_table = 'ANIMATION_ATLAS'
+    frames = 1
+}
 ---
 ---
 ---JOKERS
