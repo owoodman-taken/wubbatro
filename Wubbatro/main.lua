@@ -21,7 +21,7 @@ SMODS.Atlas{
     py = 95
 }
 SMODS.Atlas{
-    key = 'wubbablind',
+    key = 'wubbablinds',
     path = 'blind.png',
     px = 34,
     py = 34,
