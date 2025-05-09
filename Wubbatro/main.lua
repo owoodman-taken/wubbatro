@@ -294,6 +294,64 @@ SMODS.Joker{
     end
 }
 --- vignette
+SMODS.Joker{
+    key = "vignette",
+    loc_txt = {
+        name = 'vignette joker',
+        text = {
+        'scored non-aces store {C:attention}1 retrgger{}',
+        'which are all released upon playing an ace',
+        '{C:inactive}(currently {C:attention}#1# retrggers{C:inactive} stored){}',
+
+
+        },
+    },
+    atlas = "Jokers",
+    rarity = 1,
+    cost = 6,
+    unlocked = true, --where it is unlocked or not: if true, 
+    discovered = true, --whether or not it starts discovered
+    blueprint_compat = true, --can it be blueprinted/brainstormed/other
+    eternal_compat = true, --can it be eternal
+    perishable_compat = true, --can it be perishable
+    pos = {x = 0, y = 0},
+    config = {
+        extra = {
+            retrggers_stored = 0,
+            retrig_scoring = 0
+        }
+    },
+    loc_vars = function(self, info_queue, center)
+        return {vars = {center.ability.extra.retrggers_stored,}}
+    end,
+    in_pool = function(self,wawa,wawa2)
+        --whether or not this card is in the pool, return true if it is, return false if its not
+        return true
+    end,
+    calculate = function (self,card,context)
+        if context.individual and context.cardarea == G.play then
+            if (context.other_card:get_id() == 14) == false then
+                card.ability.extra.retrggers_stored = card.ability.extra.retrggers_stored + 1
+                return {
+                    message = '+1!',
+                    colour = G.C.green
+                }
+            end
+        end
+        if context.repetition and context.cardarea == G.play then
+            if context.other_card:get_id() == 14 then
+                card.ability.extra.retrig_scoring = card.ability.extra.retrggers_stored
+                card.ability.extra.retrggers_stored = 0
+                return {
+                    message = 'Again ' .. card.ability.extra.retrig_scoring .. 'X !',
+                    colour = G.C.RED,
+                    repetitions = card.ability.extra.retrig_scoring
+                }
+                
+            end
+        end
+    end
+}
 --- joker flavored fanta (aces lower blind req by 2%)
 SMODS.Joker{
     key = "joker_flav_fant",
