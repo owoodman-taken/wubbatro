@@ -835,9 +835,11 @@ SMODS.Consumable{
     unlocked = true,
     discovered = true,
     config = {
+	extra = {
         max_highlighted = 2,
         edition = 'e_holo',
         enhancement = 'm_bonus'
+	}
     },
     can_use = function (self, card)
         return true
@@ -850,15 +852,15 @@ SMODS.Consumable{
         }
     end,
     use = function (self, card, area, copier)
-        for i = 1, math.min(#G.hand.highlighted, card.ability.max_highlighted) do
+        for i = 1, math.min(#G.hand.highlighted, card.ability.extra.max_highlighted) do
             G.E_MANAGER:add_event(Event({func = function()
                 play_sound('tarot1')
                 card:juice_up(0.3, 0.5)
                 return true end }))
             
             G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
-                G.hand.highlighted[i]:set_edition(card.ability.edition, true)
-                G.hand.highlighted[i]:set_ability(card.ability.enhancement, true)
+                G.hand.highlighted[i]:set_edition(card.ability.extra.edition, true)
+                G.hand.highlighted[i]:set_ability(card.ability.extra.enhancement, true)
                 return true end }))
             
             delay(0.5)
